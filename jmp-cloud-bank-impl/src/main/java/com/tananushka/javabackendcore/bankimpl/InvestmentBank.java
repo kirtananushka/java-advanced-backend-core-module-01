@@ -11,6 +11,6 @@ public class InvestmentBank implements Bank {
 
    @Override
    public BankCard createBankCard(User user, BankCardType bankCardType) {
-      return BankCardFactory.createBankCard("INVESTMNET", user, bankCardType);
+      return BankCardFactory.createBankCard("INVESTMENT", user, bankCardType);
    }
 }
