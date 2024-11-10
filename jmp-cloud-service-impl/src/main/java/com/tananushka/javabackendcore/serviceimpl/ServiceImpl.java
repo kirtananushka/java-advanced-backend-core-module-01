@@ -16,20 +16,19 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ServiceImpl implements BankService {
-
    private final SubscriptionRepository subscriptionRepository;
    private final UserRepository userRepository;
 
    @Override
    public void subscribe(BankCard bankCard) {
-      SubscriptionEntity subscriptionEntity = new SubscriptionEntity(
+      var subscriptionEntity = new SubscriptionEntity(
             bankCard.getNumber(),
             LocalDate.now()
       );
       subscriptionRepository.save(subscriptionEntity);
 
-      User user = bankCard.getUser();
-      UserEntity userEntity = new UserEntity(user.name(), user.surname(), user.birthday());
+      var user = bankCard.getUser();
+      var userEntity = new UserEntity(user.name(), user.surname(), user.birthday());
       userRepository.save(userEntity);
    }
 
