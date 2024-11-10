@@ -5,6 +5,7 @@ import com.tananushka.javabackendcore.bankimpl.InvestmentBank;
 import com.tananushka.javabackendcore.bankimpl.RetailBank;
 import com.tananushka.javabackendcore.dto.BankCard;
 import com.tananushka.javabackendcore.dto.BankCardType;
+import com.tananushka.javabackendcore.dto.Subscription;
 import com.tananushka.javabackendcore.dto.User;
 import com.tananushka.javabackendcore.serviceapi.BankService;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDate;
+import java.util.function.Predicate;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.tananushka.javabackendcore.serviceimpl")
@@ -79,28 +81,31 @@ public class Application {
          System.out.println("----------------------------------------");
          System.out.println("Displaying all subscriptions and users...");
 
-         if (bankCard1 != null) {
-            var subscription1 = bankService.getSubscriptionByBankCardNumber(bankCard1.getNumber());
-            subscription1.ifPresentOrElse(
-                  sub -> System.out.println("Retrieved Subscription for user1: " + sub),
-                  () -> System.out.println("Subscription for user1 not found.")
-            );
+         try {
+            if (bankCard1 != null) {
+               var subscription1 = bankService.getSubscriptionByBankCardNumber(bankCard1.getNumber());
+               System.out.println("Retrieved Subscription for user1: " + subscription1);
+            }
+         } catch (Exception e) {
+            System.out.println(e.getMessage());
          }
 
-         if (bankCard2 != null) {
-            var subscription2 = bankService.getSubscriptionByBankCardNumber(bankCard2.getNumber());
-            subscription2.ifPresentOrElse(
-                  sub -> System.out.println("Retrieved Subscription for user2: " + sub),
-                  () -> System.out.println("Subscription for user2 not found.")
-            );
+         try {
+            if (bankCard2 != null) {
+               var subscription2 = bankService.getSubscriptionByBankCardNumber(bankCard2.getNumber());
+               System.out.println("Retrieved Subscription for user2: " + subscription2);
+            }
+         } catch (Exception e) {
+            System.out.println(e.getMessage());
          }
 
-         if (bankCard3 != null) {
-            var subscription3 = bankService.getSubscriptionByBankCardNumber(bankCard3.getNumber());
-            subscription3.ifPresentOrElse(
-                  sub -> System.out.println("Retrieved Subscription for user3: " + sub),
-                  () -> System.out.println("Subscription for user3 not found.")
-            );
+         try {
+            if (bankCard3 != null) {
+               var subscription3 = bankService.getSubscriptionByBankCardNumber(bankCard3.getNumber());
+               System.out.println("Retrieved Subscription for user3: " + subscription3);
+            }
+         } catch (Exception e) {
+            System.out.println(e.getMessage());
          }
 
          System.out.println("----------------------------------------");
@@ -112,6 +117,11 @@ public class Application {
          System.out.println("Calculating average age of all users...");
          double averageAge = bankService.getAverageUsersAge();
          System.out.println("The average age of all users is: " + averageAge);
+
+         System.out.println("----------------------------------------");
+         System.out.println("Getting subscriptions by condition `startDate().isEqual(LocalDate.now()`");
+         Predicate<Subscription> subscriptionPredicate = s -> s.startDate().isEqual(LocalDate.now());
+         bankService.getAllSubscriptionsByCondition(subscriptionPredicate).forEach(System.out::println);
       }
    }
 }
