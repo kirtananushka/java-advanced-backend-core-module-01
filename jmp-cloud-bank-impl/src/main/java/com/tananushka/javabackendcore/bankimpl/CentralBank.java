@@ -7,7 +7,9 @@ import com.tananushka.javabackendcore.dto.CreditBankCard;
 import com.tananushka.javabackendcore.dto.DebitBankCard;
 import com.tananushka.javabackendcore.dto.User;
 import com.tananushka.javabackendcore.utils.SimpleCardNumberGenerator;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CentralBank implements Bank {
    @Override
    public BankCard createBankCard(User user, BankCardType bankCardType) {
