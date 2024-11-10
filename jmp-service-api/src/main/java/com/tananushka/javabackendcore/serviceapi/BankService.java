@@ -7,7 +7,7 @@ import com.tananushka.javabackendcore.dto.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface Service {
+public interface BankService {
    void subscribe(BankCard bankCard);
 
    Optional<Subscription> getSubscriptionByBankCardNumber(String bankCardNumber);
