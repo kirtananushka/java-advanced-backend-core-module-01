@@ -2,7 +2,7 @@ package com.tananushka.javabackendcore.utils;
 
 import java.util.Random;
 
-public class SimpleCardNumberGenerator {
+public class CardNumberGenerator {
 
    public static String generateCardNumber() {
       Random random = new Random();
